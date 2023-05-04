@@ -1,0 +1,8 @@
+ktor:
+    development: true
+    application:
+        modules:
+            - com.dbose.ApplicationKt.module
+        watch: [ classes, resources ]
+    deployment:
+        port: 8080
