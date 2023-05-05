@@ -30,8 +30,9 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("io.ktor:ktor-server-config-yaml:$ktorVersion")
+    implementation("io.ktor:ktor-server-default-headers:$ktorVersion")
     //koin for ktor
-    implementation ("io.insert-koin:koin-core:$koinVersion")
+    implementation ("io.insert-koin:koin-ktor:$koinVersion")
     // SLF4J Logger
     implementation ("io.insert-koin:koin-logger-slf4j:$koinVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
