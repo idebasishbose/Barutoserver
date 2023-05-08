@@ -3,6 +3,9 @@ package com.dbose.repository
 import com.dbose.model.ApiResponse
 import com.dbose.model.Hero
 
+const val PREV_PAGE_KEY = "prevPage"
+const val NEXT_PAGE_KEY = "nextPage"
+
 class HeroRepositoryImpl : HeroRepository {
     override val heroes: Map<Int, List<Hero>> by lazy {
         mapOf(
@@ -379,7 +382,19 @@ class HeroRepositoryImpl : HeroRepository {
         return mapOf(PREV_PAGE_KEY to prevPage, NEXT_PAGE_KEY to nextPage)
     }
 
-    override suspend fun searchHeroes(name: String): ApiResponse {
-        TODO("Not yet implemented")
+    override suspend fun searchHeroes(query: String?): ApiResponse {
+        return ApiResponse(
+            success = true,
+            message = "ok",
+            heroes = findHeroes(query)
+        )
+    }
+
+    private fun findHeroes(query: String?): List<Hero> {
+        return if (!query.isNullOrEmpty()) {
+            heroes.flatMap { it.value.filter { hero -> hero.name.lowercase().contains(query.lowercase()) } }
+        } else {
+            emptyList()
+        }
     }
 }
