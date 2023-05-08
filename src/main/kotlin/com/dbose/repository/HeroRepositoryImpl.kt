@@ -350,9 +350,33 @@ class HeroRepositoryImpl : HeroRepository {
     )
 
 
-
     override suspend fun getAllHeroes(page: Int): ApiResponse {
-        TODO("Not yet implemented")
+        return ApiResponse(
+            success = true,
+            message = "ok",
+            prevPage = calculatePage(page = page)[PREV_PAGE_KEY],
+            nextPage = calculatePage(page = page)[NEXT_PAGE_KEY],
+            heroes = heroes[page]!!
+        )
+    }
+
+    private fun calculatePage(page: Int): Map<String, Int?> {
+        var prevPage: Int? = page
+        var nextPage: Int? = page
+
+        if (page in 1..4) {
+            nextPage = nextPage?.plus(1)
+        }
+        if (page in 2..3) {
+            prevPage = prevPage?.minus(1)
+        }
+        if (page == 1) {
+            prevPage = null
+        }
+        if (page == 5) {
+            nextPage = null
+        }
+        return mapOf(PREV_PAGE_KEY to prevPage, NEXT_PAGE_KEY to nextPage)
     }
 
     override suspend fun searchHeroes(name: String): ApiResponse {
