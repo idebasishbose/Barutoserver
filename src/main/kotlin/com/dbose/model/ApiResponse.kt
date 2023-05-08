@@ -8,5 +8,5 @@ data class ApiResponse(
     val message: String? = null,
     val prevPage: Int? = null,
     val nextPage: Int? = null,
-    val heroes: List<Hero>,
+    val heroes: List<Hero> = emptyList(),
 )
